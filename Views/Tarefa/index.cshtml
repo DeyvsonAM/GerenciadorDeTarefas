@@ -1,0 +1,83 @@
+@model IEnumerable<MVCGerenciadorDeTarefas.Models.Tarefa>
+@using MVCGerenciadorDeTarefas.Models
+@{
+    ViewData["Title"] = "Tarefas Registradas";
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Menu</h1>
+    <div class="mb-4">
+        <a asp-action="MostrarTodas" class="btn btn-primary mr-2">Mostrar Todas As Tarefas</a>
+        <a asp-action="Criar" class="btn btn-success">Adicionar Nova Tarefa</a>
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        <div>
+            <h2 class="mb-3">Lista de Tarefas</h2>
+            <table class="table table-striped table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Título</th>
+                        <th>Data</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var tarefa in Model)
+                    {
+                        <tr>
+                            <td><a asp-action="DetalhesTarefa" asp-route-id="@tarefa.Id">@tarefa.Titulo</a></td>
+                            <td>@tarefa.Data.ToString("dd/MM/yyyy")</td>
+                            <td>
+                                @tarefa.Status
+                                @if (tarefa.Status == EnumStatusTarefa.Pendente)
+                                {
+                                    <form asp-action="AlteraParaFinalizada" method="post" style="display:inline;">
+                                        <input type="hidden" name="id" value="@tarefa.Id" />
+                                        <button type="submit" class="btn btn-primary mb-2">Concluir</button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <form asp-action="BuscarPorTitulo" class="form-inline" method="get">
+                <div class="form-group mb-2">
+                    <label for="Titulo" class="mr-2">Nome Da Tarefa</label>
+                    <input name="Titulo" class="form-control mr-2" />
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Buscar Pelo Nome</button>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <form asp-action="BuscarPorData" class="form-inline" method="get">
+                <div class="form-group mb-2">
+                    <label for="Data" class="mr-2">Data Da Tarefa</label>
+                    <input type="date" name="Data" class="form-control mr-2" />
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Buscar Pela Data</button>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <form asp-action="BuscarPorStatus" class="form-inline" method="get">
+                <div class="form-group mb-2">
+                    <label for="Status" class="mr-2">Status</label>
+                    <select name="Status" class="form-control mr-2">
+                        @foreach (var status in Enum.GetValues(typeof(EnumStatusTarefa)))
+                        {
+                            <option value="@status">@status</option>
+                        }
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Buscar Pelo Status</button>
+            </form>
+        </div>
+    </div>
+</div>

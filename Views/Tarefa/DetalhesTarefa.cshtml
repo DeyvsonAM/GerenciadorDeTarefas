@@ -1,0 +1,59 @@
+@model MVCGerenciadorDeTarefas.Models.Tarefa
+
+@{
+    ViewData["Title"] = "Exibir Detalhes";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">
+                <i class="fas fa-tasks"></i> @ViewData["Title"]
+            </h2>
+            <p class="text-white-50 mb-0">Veja os detalhes completos da tarefa selecionada abaixo.</p>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3 font-weight-bold">
+                    @Html.DisplayNameFor(x => x.Titulo)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(x => x.Titulo)
+                </dd>
+
+                <dt class="col-sm-3 font-weight-bold">
+                    @Html.DisplayNameFor(x => x.Descricao)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(x => x.Descricao)
+                </dd>
+
+                <dt class="col-sm-3 font-weight-bold">
+                    @Html.DisplayNameFor(x => x.Data)
+                </dt>
+                <dd class="col-sm-9">
+                    @Model.Data.ToString("dd/MM/yyyy")
+                </dd>
+
+                <dt class="col-sm-3 font-weight-bold">
+                    @Html.DisplayNameFor(x => x.Status)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(x => x.Status)
+                </dd>
+            </dl>
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Voltar à Lista
+            </a>
+            <form asp-action="Delete" method="post" onsubmit="return confirm('Tem certeza que deseja excluir esta tarefa?');" class="d-inline">
+                <input type="hidden" name="id" value="@Model.Id">
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-trash-alt"></i> Excluir Tarefa
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
