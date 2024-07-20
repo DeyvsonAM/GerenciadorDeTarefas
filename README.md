@@ -1,6 +1,5 @@
-README
-MVC Gerenciador de Tarefas
-MVC Gerenciador de Tarefas é um aplicativo web desenvolvido com ASP.NET Core MVC para gerenciar tarefas diárias. Ele permite aos usuários criar, visualizar, editar e excluir tarefas, além de buscar tarefas por título, data ou status.
+
+Um aplicativo web desenvolvido com ASP.NET Core MVC para gerenciar tarefas diárias. Ele permite aos usuários criar, visualizar, editar e excluir tarefas, além de buscar tarefas por título, data ou status.
 
 Funcionalidades
 Adicionar Nova Tarefa
